@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Canvas } from '@react-three/fiber';
-import { Loader, KeyboardControls, useSelect } from "@react-three/drei";
+import { Loader, KeyboardControls, Environment } from "@react-three/drei";
 import { Physics } from '@react-three/rapier';
 import { Provider, useSelector } from 'react-redux';
 import { store } from './store/store.js';
@@ -19,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       ]}>
 
         <Canvas style={{ position: "absolute" }}>
+        <Environment preset="night" />
           <Physics >
             <App />
           </Physics>
@@ -31,7 +32,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 function ScoreCard() {
   let scores = useSelector((state) => state.position.score)
+  useEffect(()=>{
+    alert("CLick to play\n For vehicle to move forward press W  \n to move backward press S \n for changing direction point the cursor  ")
+  },[])
   return (
-    <h1 style={{ position: "relative", left: "0", top: "10px" }}>{scores}</h1>
+    <h1 style={{ position: "relative", left: "0", top: "10px",zIndex:1 }}>{scores}</h1>
   )
 }
