@@ -25,6 +25,7 @@ const Vehicle = () => {
     const torqueStrength = 0.01;
     let torqueIndicator = false
     function changeDirection() {
+
       if (x > 0 && y > 0) {
 
         velocity.x = velocityStrength;
@@ -110,7 +111,7 @@ const Vehicle = () => {
 
       >
         <mesh>
-          <gridHelper position={[0, 3, 0]} rotation={[Math.PI / 2, 0, 0]} args={[5, 10, 0xff0000, 'teal']}
+          <gridHelper position={[0, 3, 0]} rotation={[Math.PI / 2, 0, 0]} args={[50, 50, 0xff0000, 'teal']}
             onPointerOver={() => { setMoveForward(false) }} onPointerLeave={() => setMoveForward(true)} />
           <boxGeometry args={[4, 2, 8]} />
           <meshStandardMaterial color="orange" />

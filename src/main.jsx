@@ -19,13 +19,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         { name: 'backward', keys: ['ArrowDown', 's'] }
       ]}>
 
-        <Canvas style={{ position: "absolute" }}>
+<Canvas style={{ position: "absolute" }} camera={{ position: [0, 7, 21] }} >
         <OrbitControls/>
         <Environment preset="night" />
-        <axesHelper args={[5]} />
-        
-
-          <Physics >
+          <Physics  >
             <App />
           </Physics>
         </Canvas>
@@ -38,7 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 function ScoreCard() {
   let scores = useSelector((state) => state.position.score)
   useEffect(()=>{
-    alert("CLick to play\n For vehicle to move forward press W and mouse should be inside the grid  \n to move backward press S \n for changing direction point the cursor  ")
+    // alert("CLick to play\n For vehicle to move forward press W and mouse should be inside the grid  \n to move backward press S \n for changing direction point the cursor  ")
   },[])
   return (
     <>
