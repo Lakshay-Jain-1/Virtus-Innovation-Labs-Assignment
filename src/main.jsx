@@ -36,6 +36,10 @@ function ScoreCard() {
     alert("CLick to play\n For vehicle to move forward press W  \n to move backward press S \n for changing direction point the cursor  ")
   },[])
   return (
-    <h1 style={{ position: "relative", left: "0", top: "10px",zIndex:1 }}>{scores}</h1>
+    <>
+    <h1 style={{ position: "relative", left: "0", top: "10px",zIndex:1 }}>{scores}:"Obstacles"</h1>
+    <h2> {scores>0?"Game Lost : You can still play the game though ":""} </h2>
+    <button onClick={()=>window.location.reload()}>Restart</button>
+    </>
   )
 }

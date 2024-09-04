@@ -7,8 +7,8 @@ import { useRef, useState } from "react";
 export default function RandomObject() {
 
     let [display, setDisplay] = useState(0)
-    let [x, setX] = useState(0)
-    let [z, setZ] = useState(0)
+    let [x, setX] = useState(3)
+    let [z, setZ] = useState(3)
     const lastUpdateRef = useRef(0);
 
     function coords(state) {
@@ -44,9 +44,10 @@ function Circle({ z, x }) {
     return (
         <RigidBody
             type="dynamic"
-            position={[x || 0, 4, z || 0]}
+            position={[x || 0, 6, z || 0]}
             onCollisionEnter={() => console.log(1)}
-            mass={100}
+            colliders="ball"
+            restitution={0.6}
         >
             <mesh>
                 <cylinderGeometry args={[2, 2, 1, 32]} />
@@ -61,7 +62,7 @@ function Square({ z, x }) {
     return (
         <RigidBody
             type="dynamic"
-            position={[x || 0, 4, z || 0]}
+            position={[x || 0, 6, z || 0]}
             onCollisionEnter={() => console.log(1)}
         >
             <mesh>
