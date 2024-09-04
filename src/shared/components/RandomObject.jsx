@@ -12,8 +12,9 @@ export default function RandomObject() {
     const lastUpdateRef = useRef(0);
 
     function coords(state) {
-        setX(Math.random() * 5 + state.camera.position.x);
-        setZ(Math.random() * 4 - 20 + state.camera.position.z);
+       
+        setX(Math.random() * 5 +state.customObject?.z);
+        setZ(Math.random() * 4 - 20 + state.customObject?.z);
 
         setDisplay(prevDisplay => prevDisplay === 0 ? 1 : 0);
     }
@@ -44,7 +45,7 @@ function Circle({ z, x }) {
     return (
         <RigidBody
             type="dynamic"
-            position={[x || 0, 6, z || 0]}
+            position={[x || 0,  9+Math.random()*5, z || 0]}
             onCollisionEnter={() => console.log(1)}
             colliders="ball"
             restitution={0.6}
@@ -62,7 +63,7 @@ function Square({ z, x }) {
     return (
         <RigidBody
             type="dynamic"
-            position={[x || 0, 6, z || 0]}
+            position={[x || 0, 9+Math.random()*5, z || 0]}
             onCollisionEnter={() => console.log(1)}
         >
             <mesh>

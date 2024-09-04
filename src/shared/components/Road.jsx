@@ -4,7 +4,7 @@ export default function Road() {
   return (
     <RigidBody type='fixed' scale={[1, 1, 10]} friction={0} restitution={0.5} >
     <mesh receiveShadow position-y={-0.23} >
-      <boxGeometry args={[20, 0.5, 30]} />
+      <boxGeometry args={[60, 0.5, 40]} />
       <meshStandardMaterial side={THREE.DoubleSide} color="lightgreen" />
     </mesh>
   </RigidBody>

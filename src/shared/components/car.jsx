@@ -70,13 +70,11 @@ const Vehicle = () => {
    
     action(giveOut({x:cameraposition.x,y:cameraposition.y,z:cameraposition.z}))
 
-    const cameratarget = new THREE.Vector3()
-    cameratarget.copy(bodyPosition)
-    cameratarget.y += 2.25
+    
 
-    state.camera.position.copy(cameraposition)
+    state.customObject={x:cameraposition.x,y:cameraposition.y,z:cameraposition.z}
 
-    state.camera.lookAt(cameratarget)
+   
 
   });
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Canvas } from '@react-three/fiber';
-import { Loader, KeyboardControls, Environment } from "@react-three/drei";
+import { Loader, KeyboardControls, Environment, OrbitControls } from "@react-three/drei";
 import { Physics } from '@react-three/rapier';
 import { Provider, useSelector } from 'react-redux';
 import { store } from './store/store.js';
@@ -11,6 +11,7 @@ import './index.css';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
     <Provider store={store}>
+      
       <ScoreCard />
       <Loader />
       <KeyboardControls map={[
@@ -19,7 +20,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       ]}>
 
         <Canvas style={{ position: "absolute" }}>
+        <OrbitControls/>
         <Environment preset="night" />
+        
           <Physics >
             <App />
           </Physics>
