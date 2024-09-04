@@ -22,7 +22,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Canvas style={{ position: "absolute" }}>
         <OrbitControls/>
         <Environment preset="night" />
+        <axesHelper args={[5]} />
         
+
           <Physics >
             <App />
           </Physics>
@@ -36,7 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 function ScoreCard() {
   let scores = useSelector((state) => state.position.score)
   useEffect(()=>{
-    alert("CLick to play\n For vehicle to move forward press W  \n to move backward press S \n for changing direction point the cursor  ")
+    alert("CLick to play\n For vehicle to move forward press W and mouse should be inside the grid  \n to move backward press S \n for changing direction point the cursor  ")
   },[])
   return (
     <>
