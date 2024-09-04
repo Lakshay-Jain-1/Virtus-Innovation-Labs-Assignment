@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       ]}>
 
         <Canvas style={{ position: "absolute" }}>
-          <Physics debug>
+          <Physics >
             <App />
           </Physics>
         </Canvas>
