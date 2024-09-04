@@ -22,12 +22,11 @@ const Vehicle = () => {
     let torque = { x: 0, y: 0, z: 0 };
 
     const velocityStrength = 900 * delta;
-    const torqueStrength = 0.01;
-    let torqueIndicator = false
+    const torqueStrength = 2;
+   
     function changeDirection() {
 
       if (x > 0 && y > 0) {
-
         velocity.x = velocityStrength;
         torque.y = -torqueStrength;
       } else if (x > 0 && y < 0) {
@@ -40,7 +39,7 @@ const Vehicle = () => {
         velocity.x = -velocityStrength;
         torque.y = torqueStrength;
       }
-      torqueIndicator = true
+     
     }
 
     const { forward, backward } = getKeys();
