@@ -21,8 +21,8 @@ const Vehicle = () => {
     let velocity = { x: 0, y: 0, z: 0 };
     let torque = { x: 0, y: 0, z: 0 };
 
-    const velocityStrength = 260 * delta;
-    const torqueStrength = 0.1; 
+    const velocityStrength = 660 * delta;
+    const torqueStrength = 0.05; 
 
      function changeDirection(){
       if (x > 0 && y > 0) { 
@@ -61,11 +61,11 @@ const Vehicle = () => {
     backRightWheelRef.current?.applyTorqueImpulse(torque);
 
 
-    const bodyPosition = bodyRef.current.translation()  // will get car coordinates
+    const bodyPosition = bodyRef.current.translation()  
 
     const cameraposition = new THREE.Vector3()
     cameraposition.copy(bodyPosition)
-    cameraposition.z += 6.25
+    cameraposition.z += 12.25
     cameraposition.y += 9.65
    
     action(giveOut({x:cameraposition.x,y:cameraposition.y,z:cameraposition.z}))
@@ -107,6 +107,7 @@ const Vehicle = () => {
         position={[0, 2, 0]}
         mass={10}
         onCollisionEnter={() => action(score(1))}
+        
       >
         <mesh>
           <boxGeometry args={[4, 2, 8]} />
@@ -118,8 +119,10 @@ const Vehicle = () => {
       <RigidBody
         ref={frontWheelRef}
         type="kinematicVelocity"
-        position={[0, 1, 4]}
+        position={[0, 1, -3]}
         colliders="trimesh"
+        onCollisionEnter={() => action(score(1))}
+         friction={0}
         mass={5}
       >
         <mesh>
@@ -132,8 +135,9 @@ const Vehicle = () => {
       <RigidBody
         ref={backLeftWheelRef}
         type="kinematicVelocity"
-        position={[-2, 1, -3]}
+        position={[-2, 1, 4]}
         mass={5}
+        onCollisionEnter={() => action(score(1))}
         colliders="trimesh"
       >
         <mesh rotation={[0, 0, Math.PI / 2]}>
@@ -143,9 +147,9 @@ const Vehicle = () => {
       </RigidBody>
 
       
-      <RigidBody ref={backRightWheelRef} type="kinematicVelocity" position={[2, 1, -3]} mass={5} colliders="trimesh">
+      <RigidBody ref={backRightWheelRef} type="kinematicVelocity" position={[2, 1, 4]} mass={5} colliders="trimesh" onCollisionEnter={() => action(score(1))}>
         <mesh rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[1, 1, 0.5, 32]} />
+        <cylinderGeometry args={[1, 1, 0.5, 32]} />
           <meshStandardMaterial color="black" />
         </mesh>
       </RigidBody>

@@ -12,7 +12,8 @@ export const positionSlice = createSlice({
     giveOut: (state,payload) => {
       state.positions=payload
     },
-    score:(state,payload)=>{
+    score:(state,{payload})=>{
+       
           state.score+=payload
     }
   },
