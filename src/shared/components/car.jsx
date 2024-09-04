@@ -2,13 +2,16 @@ import React, { useRef } from 'react';
 import { RigidBody, useRevoluteJoint } from '@react-three/rapier';
 import { useKeyboardControls } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
+import * as THREE from "three"
+import { giveOut ,score } from '../../features/positionSlice';
+import { useDispatch } from 'react-redux';
 
 const Vehicle = () => {
   const bodyRef = useRef(null);
   const frontWheelRef = useRef(null);
   const backLeftWheelRef = useRef(null);
   const backRightWheelRef = useRef(null);
-
+  const action = useDispatch()
   const [subscribeKeys, getKeys] = useKeyboardControls();
 
   useFrame((state, delta) => {
@@ -18,7 +21,7 @@ const Vehicle = () => {
     let velocity = { x: 0, y: 0, z: 0 };
     let torque = { x: 0, y: 0, z: 0 };
 
-    const velocityStrength = 160 * delta;
+    const velocityStrength = 260 * delta;
     const torqueStrength = 0.1; 
 
      function changeDirection(){
@@ -56,6 +59,25 @@ const Vehicle = () => {
     backLeftWheelRef.current?.applyTorqueImpulse(torque);
     backRightWheelRef.current?.setLinvel(velocity);
     backRightWheelRef.current?.applyTorqueImpulse(torque);
+
+
+    const bodyPosition = bodyRef.current.translation()  // will get car coordinates
+
+    const cameraposition = new THREE.Vector3()
+    cameraposition.copy(bodyPosition)
+    cameraposition.z += 6.25
+    cameraposition.y += 9.65
+   
+    action(giveOut({x:cameraposition.x,y:cameraposition.y,z:cameraposition.z}))
+
+    const cameratarget = new THREE.Vector3()
+    cameratarget.copy(bodyPosition)
+    cameratarget.y += 2.25
+
+    state.camera.position.copy(cameraposition)
+
+    state.camera.lookAt(cameratarget)
+
   });
 
   useRevoluteJoint(bodyRef, frontWheelRef, [
@@ -84,6 +106,7 @@ const Vehicle = () => {
         type="kinematicVelocity"
         position={[0, 2, 0]}
         mass={10}
+        onCollisionEnter={() => action(score(1))}
       >
         <mesh>
           <boxGeometry args={[4, 2, 8]} />

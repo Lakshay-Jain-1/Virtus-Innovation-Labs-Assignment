@@ -1,48 +1,73 @@
 import { useFrame } from "@react-three/fiber";
 import { RigidBody } from "@react-three/rapier"
-import { useState } from "react";
+import { useRef, useState } from "react";
+
 
 
 export default function RandomObject() {
-   
-    let [display,setDisplay] = useState(0)
-   
-    let [z,setz] = useState(0)
-    useFrame(()=>{
-        if(display==0){
-            setDisplay(1)
-            setz(Math.random()*10)
-        }else{
-            setDisplay(0)
-            setz(Math.random()*10)
+
+    let [display, setDisplay] = useState(0)
+    let [x, setX] = useState(0)
+    let [z, setZ] = useState(0)
+    const lastUpdateRef = useRef(0);
+
+    function coords(state) {
+        setX(Math.random() * 5 + state.camera.position.x);
+        setZ(Math.random() * 4 - 20 + state.camera.position.z);
+
+        setDisplay(prevDisplay => prevDisplay === 0 ? 1 : 0);
+    }
+    useFrame((state) => {
+
+        const now = performance.now();
+        const timeElapsed = now - lastUpdateRef.current;
+
+        if (timeElapsed > 4000) {
+            coords(state);
+            lastUpdateRef.current = now;
         }
+
     })
 
     return (
-        <RigidBody type="dynamic" position={[0,4,0]} onCollisionEnter={()=>console.log(1)}>
 
-         {display==1?<Circle/>:<Square/>}
-        
-        </RigidBody>
+        <>
+            {display == 1 ? <Circle z={z} x={x} /> : <Square z={z} x={x} />}
+        </>
+
     )
 
 
 }
 
-function Circle() {
+function Circle({ z, x }) {
     return (
-      <mesh>
-        <circleGeometry args={[1, 32]} /> {/* radius: 1, segments: 32 */}
-        <meshBasicMaterial color="blue" />
-      </mesh>
+        <RigidBody
+            type="dynamic"
+            position={[x || 0, 4, z || 0]}
+            onCollisionEnter={() => console.log(1)}
+            mass={100}
+        >
+            <mesh>
+                <cylinderGeometry args={[2, 2, 1, 32]} />
+                <meshBasicMaterial color="blue" />
+            </mesh>
+        </RigidBody>
     );
-  }
+}
 
-  function Square() {
+// Square component
+function Square({ z, x }) {
     return (
-      <mesh>
-        <planeGeometry args={[1, 1]} /> {/* width: 1, height: 1 */}
-        <meshBasicMaterial color="green" />
-      </mesh>
+        <RigidBody
+            type="dynamic"
+            position={[x || 0, 4, z || 0]}
+            onCollisionEnter={() => console.log(1)}
+        >
+            <mesh>
+                <boxGeometry args={[1, 1, 10]} />
+                <meshBasicMaterial color="green" />
+            </mesh>
+        </RigidBody>
     );
-  }
+}

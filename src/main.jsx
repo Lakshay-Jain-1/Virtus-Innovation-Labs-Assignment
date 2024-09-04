@@ -1,43 +1,27 @@
-import { React } from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { Canvas } from '@react-three/fiber'
-import { Loader } from "@react-three/drei"
-import { KeyboardControls } from '@react-three/drei'
-import { Physics } from '@react-three/rapier'
-
-
-
-
-
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { Canvas } from '@react-three/fiber';
+import { Loader, KeyboardControls } from "@react-three/drei";
+import { Physics } from '@react-three/rapier';
+import { Provider } from 'react-redux';
+import {store} from './store/store.js';
+import App from './App.jsx';
+import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
     <Loader />
-
-   
     <KeyboardControls map={[
-      { name: 'forward', keys: ['ArrowUp', "w"] },
-      { name: 'backward', keys: ['ArrowDown', "s"] }
-      
+      { name: 'forward', keys: ['ArrowUp', 'w'] },
+      { name: 'backward', keys: ['ArrowDown', 's'] }
     ]}>
-      <Canvas  >
-
-
-        <Physics debug gravity={[0,100,0]}   >
-          <App />
-        </Physics>
-
-
-
-      </Canvas>
-
+      <Provider store={store}>
+        <Canvas>
+          <Physics debug>
+            <App />
+          </Physics>
+        </Canvas>
+      </Provider>
     </KeyboardControls>
-
-
   </>
-
-)
-
-
+);
